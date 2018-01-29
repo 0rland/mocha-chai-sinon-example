@@ -1,20 +1,22 @@
 ﻿/**
- * Module2 unit tests.
  * `sinon` is used to stub method of imported object.
+ * There is no assertion for spies/stubs.
  */
 'use strict';
 const chai = require('chai');
+const should = chai.should();
+
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
-const should = chai.should();
+
 const sinon = require('sinon');
 
 const request = require('request');
 const rp = require('request-promise');
 
-const module1 = require('../src/module1');
+const objDependency = require('../src/objDependency');
 
-describe('module2', function() {
+describe('objDependency', function() {
   describe('useRequestAsPromise', function() {
     before(() => {
       sinon.stub(rp, "get").resolves('Найти');
@@ -22,24 +24,21 @@ describe('module2', function() {
     after(function () {
       rp.get.restore();
     });
-    it('should return content with `Найти` substring', function() {
-      return module1.useRequestAsPromise().should.eventually.contains('Найти');
-    });
+    it('should return content with `Найти` substring',
+      () => objDependency.useRequestAsPromise().should.eventually.contains('Найти'));
   });
   describe('useRequest', function() {
     before(() => {
-      sinon.stub(request, "get").callsArgWith(1, 'Найти');
+      sinon.stub(request, "get").callsArgWith(1, null, null, 'Найти');
     });
     after(function () {
       request.get.restore();
     });
-    it('should return content with `Найти` substring', function() {
-      return new Promise(resolve => {
-        module1.useRequest((err, response, body) => {
-          should.not.exist(err);
-          body.should.contain('Найти');
-          resolve();
-        });
+    it('should return content with `Найти` substring', done => {
+      objDependency.useRequest((err, response, body) => {
+        //should.not.exist(err);
+        body.should.contain('Найти');
+        done();
       });
     });
   });
