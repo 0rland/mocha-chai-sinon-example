@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha"
+    "test": "node_modules/.bin/mocha",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +19,8 @@
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "sinon": "^3.2.1",
-    "sinon-chai": "^2.14.0"
-  }
+    "sinon-chai": "^2.14.0",
+    "snyk": "^1.189.0"
+  },
+  "snyk": true
 }
