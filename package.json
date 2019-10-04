@@ -20,7 +20,7 @@
     "request-promise": "^4.2.1",
     "sinon": "^3.2.1",
     "sinon-chai": "^2.14.0",
-    "snyk": "^1.189.0"
+    "snyk": "^1.231.0"
   },
   "snyk": true
 }
